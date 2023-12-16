@@ -2,6 +2,7 @@ package days
 
 import (
 	base "aoc2023"
+	"fmt"
 	"strconv"
 	"strings"
 	"testing"
@@ -18,7 +19,23 @@ func solution(input []string) string {
 		game := MakeGameMaxBalls(line)
 		if !game.IsPossible(maxRed, maxBlue, maxGreen) {
 			sum += game.id
+
+			fmt.Printf("game id : %s, red %s blue %s green %s",
+				strconv.FormatInt(int64(game.id), 10),
+				strconv.FormatInt(int64(game.red), 10),
+				strconv.FormatInt(int64(game.blue), 10),
+				strconv.FormatInt(int64(game.green), 10))
+
+			fmt.Println(line)
 		}
+
+		fmt.Printf("game id : %s, red %s blue %s green %s",
+			strconv.FormatInt(int64(game.id), 10),
+			strconv.FormatInt(int64(game.red), 10),
+			strconv.FormatInt(int64(game.blue), 10),
+			strconv.FormatInt(int64(game.green), 10))
+
+		fmt.Println(line)
 
 	}
 
@@ -33,7 +50,7 @@ type GamesMaxBalls struct {
 }
 
 func (Game *GamesMaxBalls) IsPossible(maxRed int, maxBlue int, maxGreen int) bool {
-	return maxRed <= Game.red && maxBlue <= Game.blue && maxGreen <= Game.green
+	return maxRed >= Game.red && maxBlue >= Game.blue && maxGreen >= Game.green
 }
 
 func MakeGameMaxBalls(line string) GamesMaxBalls {
