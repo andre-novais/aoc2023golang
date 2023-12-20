@@ -2,7 +2,6 @@ package days
 
 import (
 	base "aoc2023"
-	"fmt"
 	"strconv"
 	"strings"
 	"testing"
@@ -11,31 +10,33 @@ import (
 func solution(input []string) string {
 	sum := 0
 
-	maxRed := 12
-	maxGreen := 13
-	maxBlue := 14
+	// maxRed := 12
+	// maxGreen := 13
+	// maxBlue := 14
 
 	for _, line := range input {
 		game := MakeGameMaxBalls(line)
-		if !game.IsPossible(maxRed, maxBlue, maxGreen) {
-			sum += game.id
 
-			fmt.Printf("game id : %s, red %s blue %s green %s",
-				strconv.FormatInt(int64(game.id), 10),
-				strconv.FormatInt(int64(game.red), 10),
-				strconv.FormatInt(int64(game.blue), 10),
-				strconv.FormatInt(int64(game.green), 10))
+		// if !game.IsPossible(maxRed, maxBlue, maxGreen) {
+		// 	continue
 
-			fmt.Println(line)
-		}
+		// 	// fmt.Printf("game id : %s, red %s blue %s green %s\n",
+		// 	// 	strconv.FormatInt(int64(game.id), 10),
+		// 	// 	strconv.FormatInt(int64(game.red), 10),
+		// 	// 	strconv.FormatInt(int64(game.blue), 10),
+		// 	// 	strconv.FormatInt(int64(game.green), 10))
 
-		fmt.Printf("game id : %s, red %s blue %s green %s",
-			strconv.FormatInt(int64(game.id), 10),
-			strconv.FormatInt(int64(game.red), 10),
-			strconv.FormatInt(int64(game.blue), 10),
-			strconv.FormatInt(int64(game.green), 10))
+		// 	// fmt.Println(line)
+		// }
 
-		fmt.Println(line)
+		sum += game.red * game.blue * game.green
+		// fmt.Printf("game id : %s, red %s blue %s green %s\n",
+		// 	strconv.FormatInt(int64(game.id), 10),
+		// 	strconv.FormatInt(int64(game.red), 10),
+		// 	strconv.FormatInt(int64(game.blue), 10),
+		// 	strconv.FormatInt(int64(game.green), 10))
+
+		// fmt.Println(line)
 
 	}
 
@@ -105,7 +106,7 @@ func TestTest(t *testing.T) {
 
 	var result = solution(input)
 
-	if result != "jjeee" {
-		t.Errorf("input errado! want: jjeee, got %s", result)
+	if result != "71535" {
+		t.Errorf("input errado! want: 71535, got %s", result)
 	}
 }

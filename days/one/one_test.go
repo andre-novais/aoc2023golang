@@ -63,7 +63,7 @@ func TestTest(t *testing.T) {
 
 	var result2 = solution(input)
 
-	if result2 != "jjeee" {
-		t.Errorf("input errado! want: jjeee, got %s", result2)
+	if result2 != "55343" {
+		t.Errorf("input errado! want: 55343, got %s", result2)
 	}
 }
