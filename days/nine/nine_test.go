@@ -2,11 +2,50 @@ package days
 
 import (
 	base "aoc2023"
+	"strconv"
+	"strings"
 	"testing"
 )
 
 func solution(input []string) string {
-	return "2"
+
+	sum := 0
+
+	for _, line := range input {
+		sum += solutionLine(line)
+	}
+
+	return strconv.FormatInt(int64(sum), 10)
+}
+
+func solutionLine(line string) int {
+	numsStrs := strings.Split(line, " ")
+
+	var startNums []int
+	for _, numStr := range numsStrs {
+		num, _ := strconv.ParseInt(numStr, 10, 64)
+		startNums = append(startNums, int(num))
+	}
+
+	stack := [][]int{startNums}
+
+	for !allZeroes(stack[len(stack)-1]) {
+		stack = append(stack, generateNextNumbers(stack[len(stack)-1]))
+	}
+
+	acc1 := 0
+
+	for i := range stack {
+		k := len(stack) - 1 - i
+
+		if i == 0 {
+			continue
+		}
+
+		acc1 = stack[k][0] - acc1
+	}
+
+	return acc1
 }
 
 /*
@@ -19,6 +58,14 @@ getNumAndAddToLast
 
 last -> all equal -> get last and sum last from previous
 
+
+
+
+stack
+
+pega linha e gera proximo numero, inclui no stack
+continua até ultimo item sõ tiver zeros
+vai pegando ultimo valor e somando com o previo
 
 */
 
@@ -54,6 +101,16 @@ func TestGenerateNextNumbers(t *testing.T) {
 	}
 }
 
+func TestSolutionLine(t *testing.T) {
+	inputLine := "0 3 6 9 12 15"
+
+	var result = solutionLine(inputLine)
+
+	if result != -3 {
+		t.Errorf("input errado! want: -3, got %d", result)
+	}
+}
+
 func TestSolution(t *testing.T) {
 	var input = []string{
 		"0 3 6 9 12 15",
@@ -63,8 +120,8 @@ func TestSolution(t *testing.T) {
 
 	var result = solution(input)
 
-	if result != "114" {
-		t.Errorf("input errado! want: 114, got %s", result)
+	if result != "2" {
+		t.Errorf("input errado! want: 2, got %s", result)
 	}
 }
 
@@ -73,7 +130,7 @@ func TestTest(t *testing.T) {
 
 	var result = solution(input)
 
-	if result != "jjeee" {
-		t.Errorf("input errado! want: jjeee, got %s", result)
+	if result != "1016" {
+		t.Errorf("input errado! want: 1016, got %s", result)
 	}
 }
