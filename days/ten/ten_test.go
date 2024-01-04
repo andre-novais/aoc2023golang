@@ -8,7 +8,19 @@ import (
 )
 
 func solution(input []string) string {
-	return "2"
+	memory := make(map[string]Cano)
+
+	makeS("15", "54", input, memory)
+
+	max := 0
+
+	for _, value := range memory {
+		if value.Distance > max {
+			max = value.Distance
+		}
+	}
+
+	return strconv.FormatInt(int64(max), 10)
 }
 
 /*
@@ -48,7 +60,6 @@ func makeOrGetCano(symbol string, x string, y string, distance int, memory map[s
 
 	cano := Cano{X: x, Y: y, Symbol: symbol, Distance: distance, conections: []Cano{origin}}
 
-	fmt.Println(symbol)
 	switch symbol {
 	case "|":
 		{
@@ -84,14 +95,11 @@ func makeOrGetCano(symbol string, x string, y string, distance int, memory map[s
 	case "L":
 		{
 			if yOriginInt == yInt-1 {
-				fmt.Println("veio do norte")
 				nextYInt = yInt
 				nextXInt = xInt + 1
 				break
 			}
 
-			fmt.Println("nao veio do norte")
-			fmt.Println(yInt, yOriginInt)
 			nextYInt = yInt - 1
 			nextXInt = xInt
 			break
