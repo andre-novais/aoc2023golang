@@ -5,8 +5,8 @@ import (
 	"testing"
 )
 
-func solution(input []string) string {
-
+func solution(input []string) int {
+	return 3
 }
 
 func TestTest(t *testing.T) {
@@ -14,7 +14,7 @@ func TestTest(t *testing.T) {
 
 	var result = solution(input)
 
-	if result != "jjeee" {
-		t.Errorf("input errado! want: jjeee, got %d", result)
+	if result != 21 {
+		t.Errorf("input errado! want: 12, got %d", result)
 	}
 }
